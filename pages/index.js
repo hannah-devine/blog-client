@@ -3,7 +3,6 @@ import styles from '../styles/Home.module.css'
 import Layout from "../components/Layout";
 
 export default function Home( {data}) {
-  console.log(data);
   return (
     <Layout>
     <div className={styles.container}>
@@ -29,7 +28,7 @@ export default function Home( {data}) {
 }
 
 export const getStaticProps = async () => {
-  const response = await fetch(`http://localhost:1337/articles`);
+  const response = await fetch(`${process.env.STRAPI_URL}/articles`);
   const data = await response.json();
 
   return {
