@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 import Layout from "../../components/Layout";
+const slugify = require('slugify');
 
 const article = ({ data }) => {
   return (
@@ -35,12 +36,11 @@ const article = ({ data }) => {
 export default article;
 
 
-
 export const getStaticPaths = async () => {
   const response = await fetch(`${process.env.STRAPI_URL}/articles`)
   const posts = await response.json();
 
-  const paths = posts.map((post) => ({ params: { id: "" + post.id } }));
+  const paths = posts.map((post) => ({ params: { slug: "" + post.slug } }));
 
   return {
     paths,
@@ -49,8 +49,11 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async (params) => {
-  const response = await fetch(`${process.env.STRAPI_URL}/articles/${params.id}`)
+  const response = await fetch(`${process.env.STRAPI_URL}/articles/${params.slug}`)
   const post = await response.json();
 
   return { props: { post } }
 };
+
+
+
