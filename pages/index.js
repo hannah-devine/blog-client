@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import Layout from "../components/Layout";
+import Link from "next/link";
 
 export default function Home( {data}) {
   return (
@@ -15,7 +16,9 @@ export default function Home( {data}) {
         <div className={styles.grid}>
           {data.map((article) => (
             <div className={styles.card}>
-              <h3>{article.title} &rarr;</h3>
+              <Link href={`/articles/${article.slug}`}>
+                <a>{article.title} &rarr;</a>
+              </Link>
               <p>{article.description}</p>
             </div>
           ))} 
